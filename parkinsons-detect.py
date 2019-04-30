@@ -127,5 +127,25 @@ for i in idx:
 
 montage = build_montages(images,(128,128),(5,5))[0]
 
+
+def predict_new(path):
+    img = cv2.imread(path)
+    gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+    img = cv2.resize(gray,(200,200))
+    out =img.copy()
+    img = cv2.threshold(img,0,255,cv2.THRESH_BINARY_INV|cv2.THRESH_OTSU)[1]
+    feature = quantify_images(img)
+    preds = model.predict([feature])
+    lab = le.inverse_transform(preds)[0]
+    Color = (0,255,0) if lab == 'healthy' else(0,0,255)
+    cv2.putText(out,lab,(3,20),cv2.FONT_HERSHEY_SIMPLEX,0.5,Color,2)
+
+    return out
+V11PO03 = '/media/HassanAlsamahi/DaTa/hassan-work/Machine-Learning/Biomedical-project/Biomedical-Detect-Parkinsons/New/V11PO03.png'
+path = '/media/HassanAlsamahi/DaTa/hassan-work/Machine-Learning/Biomedical-project/Biomedical-Detect-Parkinsons/New/V10PO02.png'
+out = predict_new(path)
+
+cv2.imshow("image",out)
+
 cv2.imshow('Output',montage)
 cv2.waitKey(0)
