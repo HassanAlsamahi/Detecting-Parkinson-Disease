@@ -6,3 +6,14 @@ So by this we can automate the process and detect the disease by scanning the pa
 
 # Algorithms used
 I've used HOG (Histogram of oriented gradients) to extract features from the dataset and then passed these features to a random forest classifier to train the model on classifying patterns of patients and healthy drawings.
+
+
+# How To Train the Model
+You can train the model either on the wave dataset 
+``` 
+python3 parkinsons-detect.py --dataset dataset/wave
+``` 
+or by using the spirals drawings 
+```
+python3 parkinsons-detect.py --dataset/spiral
+```
